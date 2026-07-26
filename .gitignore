@@ -1,0 +1,19 @@
+# Personal configuration - never publish
+config.json
+*.log
+
+# SSH keys, if they ever end up in the project folder by mistake
+*.pem
+id_ed25519
+id_ed25519.pub
+id_rsa
+id_rsa.pub
+known_hosts
+
+# rclone downloaded/extracted locally (if not under %APPDATA%)
+rclone/
+rclone.conf
+
+# Windows / PowerShell temp files
+Thumbs.db
+desktop.ini
