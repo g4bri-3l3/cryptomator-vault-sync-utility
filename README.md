@@ -1,7 +1,8 @@
 # Cryptomator Vault Sync Utility
 A small Windows GUI tool (PowerShell) to sync a **[Cryptomator](https://cryptomator.org/)**
 vault to any cloud storage exposed via **SFTP** or **WebDAV**, using
-**[rclone](https://rclone.org/)** under the hood.
+**[rclone](https://rclone.org/)** under the hood. useful when your vault contains
+tens of thousands of files.
 
 Your files stay **encrypted on your own machine** with Cryptomator (AES-256)
 *before* they ever leave it. The cloud only ever sees ciphertext. This tool
