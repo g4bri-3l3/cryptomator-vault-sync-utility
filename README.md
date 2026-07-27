@@ -32,7 +32,7 @@ Cryptomator flips this around with **client-side, end-to-end encryption**:
   Linux, Android, iOS).
 
 This tool is built around that model: Cryptomator does the encryption, and
-Cloud Vault Sync handles moving the encrypted vault to and from your storage.
+Vault Sync handles moving the encrypted vault to and from your storage.
 
 ---
 
@@ -55,7 +55,7 @@ Cloud Vault Sync handles moving the encrypted vault to and from your storage.
 - **Bandwidth limit** (Mbit/s) so a big upload doesn't saturate your line.
 - Live output in a **separate console window** for long operations, with a
   "press a key to return" pause so you can read the final summary.
-- **Localized UI** (English default, Italian included) via JSON files.
+- **Localized UI** (English default, Italian, German and French included) via JSON files.
 - **No manual restart**: reconfiguring reloads everything in place.
 
 ---
@@ -76,7 +76,7 @@ being that no single failure or event can take out all copies at once.
 
 Because the vault is encrypted client-side, the USB drive and the cloud copy
 are both unreadable without your passphrase — so neither a lost USB stick nor a
-cloud breach exposes your photos.
+cloud breach exposes your data.
 
 ---
 
@@ -89,8 +89,7 @@ cloud breach exposes your photos.
   (HTTPS URL).
 - **Cryptomator** for managing the vault (not required by the script itself,
   but it's the intended use case).
-
-`rclone` is **not** required up front — the tool offers to download it on first
+- `rclone` is **not** required up front — the tool offers to download it on first
 run.
 
 ---
@@ -166,10 +165,10 @@ window to stay open.
 
 ## Typical workflow
 
-1. Add/import your photos into the **unlocked** Cryptomator vault as usual.
+1. Add/import your data into the **unlocked** Cryptomator vault as usual.
 2. **Lock** the vault in Cryptomator (this flushes all writes to the encrypted
    files on disk).
-3. Open Cloud Vault Sync — the status line turns green ("Vault: LOCKED").
+3. Open Vault Sync utility — the status line turns green ("Vault: LOCKED").
 4. Click **Sync local vault to remote**. A console window shows live progress.
 5. Optionally click **Backup to USB** for the local 3-2-1 copy.
 6. Run **Verify integrity** now and then, or after a big transfer.
