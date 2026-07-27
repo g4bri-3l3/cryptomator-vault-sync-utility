@@ -160,8 +160,7 @@ If you prefer alternatives:
   script hasn't been tampered with.
 
 You can make a Desktop shortcut with the `Bypass` command as the **Target** for
-a double-click launch. Add `-NoExit` while troubleshooting if you want the
-window to stay open.
+a double-click launch.
 
 ---
 
