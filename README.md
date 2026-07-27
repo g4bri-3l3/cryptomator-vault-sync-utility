@@ -14,7 +14,7 @@ having to remember rclone commands.
 > SFTP/WebDAV-compatible provider. Nothing in the code is tied to a specific
 > vendor.
 > 
-![Main window](screenshots/main-window.jpg)
+![Main window](screenshots/main_window.jpg)
 ---
 
 ## Why encrypt your data before the cloud?
