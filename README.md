@@ -15,9 +15,9 @@ having to remember rclone commands.
 
 ---
 
-## Why encrypt your photos before the cloud?
+## Why encrypt your data before the cloud?
 
-When you upload photos to a typical consumer cloud (Google Drive, OneDrive,
+When you upload data to a typical consumer cloud (Google Drive, OneDrive,
 iCloud, Dropbox...), they are stored in a form the provider can read. The
 transfer is encrypted in transit, and the provider encrypts data at rest — but
 **the provider holds the keys**. That means the files can be scanned, indexed,
@@ -198,10 +198,9 @@ holds setup-specific data. The included `.gitignore` excludes it.
 
 ## Localization
 
-UI strings live in `lang/en.json` (default) and `lang/it.json`. The setup form
-lets you pick the language. To add another language, copy `en.json`, translate
-the values (keep the keys and any `{0}`/`{1}` placeholders unchanged), and save
-it as `lang/<code>.json` — it appears automatically in the dropdown.
+UI strings live in lang/ — en.json (default), it.json, de.json, fr.json. The setup form lets you pick the language.
+To add another one, copy en.json, translate the values (keep the keys and any {0}/{1} placeholders unchanged), 
+and save it as lang/<code>.json — it appears automatically in the dropdown.
 
 ---
 
