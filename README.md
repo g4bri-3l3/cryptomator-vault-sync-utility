@@ -1,4 +1,4 @@
-# cryptomator-vault-sync-utility
+# Cryptomator Vault Sync Utility
 A small Windows GUI tool (PowerShell) to sync a **[Cryptomator](https://cryptomator.org/)**
 vault to any cloud storage exposed via **SFTP** or **WebDAV**, using
 **[rclone](https://rclone.org/)** under the hood.
@@ -40,8 +40,9 @@ Vault Sync handles moving the encrypted vault to and from your storage.
 
 - **SFTP or WebDAV** transport, selectable in setup (only the relevant fields
   are shown for the protocol you pick).
-- SFTP auth via **SSH key** (with passphrase support) **or** username/password.
+- **SFTP** auth via **SSH key** (with passphrase support) **or** username/password.
 - **Host key verification** for SFTP (`known_hosts`) to protect against MITM.
+- **SSH Keys** generation embedded
 - Automatic **rclone download** on first run, with an explicit confirmation
   dialog showing the download URL and the server's TLS certificate.
 - **Sync** (local -> remote), never deletes anything remote (`rclone copy`).
@@ -56,11 +57,11 @@ Vault Sync handles moving the encrypted vault to and from your storage.
 - Live output in a **separate console window** for long operations, with a
   "press a key to return" pause so you can read the final summary.
 - **Localized UI** (English default, Italian, German and French included) via JSON files.
-- **No manual restart**: reconfiguring reloads everything in place.
+- **No manual restart on config change**: reconfiguring reloads everything in place.
 
 ---
 
-## The 3-2-1 backup rule
+## Backup best practice
 
 A widely used guideline: keep **3** copies of your data, on **2** different
 media, with **1** copy off-site. With this tool a typical setup is:
@@ -85,12 +86,12 @@ cloud breach exposes your data.
 - Windows 10/11 with **PowerShell 5.1+** (included by default).
 - Windows **OpenSSH client** (for `ssh-keygen`, only needed for SFTP key auth) —
   included by default from Windows 10 onward.
-- A storage endpoint reachable via **SFTP** (port 22 or custom) or **WebDAV**
+- A storage endpoint reachable via **SFTP** (over SSH, port 22 or custom) or **WebDAV**
   (HTTPS URL).
 - **Cryptomator** for managing the vault (not required by the script itself,
   but it's the intended use case).
 - `rclone` is **not** required up front — the tool offers to download it on first
-run.
+  run.
 
 ---
 
@@ -170,7 +171,7 @@ window to stay open.
    files on disk).
 3. Open Vault Sync utility — the status line turns green ("Vault: LOCKED").
 4. Click **Sync local vault to remote**. A console window shows live progress.
-5. Optionally click **Backup to USB** for the local 3-2-1 copy.
+5. Optionally click **Backup to USB** for the local copy.
 6. Run **Verify integrity** now and then, or after a big transfer.
 
 For a restore on a new machine, use **Download remote to local** (read the
@@ -198,7 +199,11 @@ holds setup-specific data. The included `.gitignore` excludes it.
 
 ## Localization
 
-UI strings live in lang/ — en.json (default), it.json, de.json, fr.json. The setup form lets you pick the language. To add another one, copy en.json, translate the values (keep the keys and any {0}/{1} placeholders unchanged), and save it as lang/<code>.json — it appears automatically in the dropdown.
+UI strings live in `lang/` — `en.json` (default), `it.json`, `de.json`, and
+`fr.json`. The setup form lets you pick the language, applied without restarting
+the program. To add another language, copy `en.json`, translate the values
+(keep the keys and any `{0}`/`{1}` placeholders unchanged), and save it as
+`lang/<code>.json` — it appears automatically in the dropdown.
 
 ---
 
