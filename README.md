@@ -99,6 +99,7 @@ cloud breach exposes your data.
 
 ```
 CloudVaultSync.ps1     # the script — run this
+screenshots/
 lang/
   en.json              # English (default)
   it.json              # Italian
