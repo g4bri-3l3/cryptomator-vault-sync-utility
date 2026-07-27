@@ -12,7 +12,8 @@ having to remember rclone commands.
 > Works with a storage box, a VPS, a NAS, Nextcloud / ownCloud, or any other
 > SFTP/WebDAV-compatible provider. Nothing in the code is tied to a specific
 > vendor.
-
+> 
+![Main window](screenshots/main-window.jpg)
 ---
 
 ## Why encrypt your data before the cloud?
