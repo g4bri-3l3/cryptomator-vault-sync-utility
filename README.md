@@ -7,7 +7,7 @@ tens of thousands of files.
 Your files stay **encrypted on your own machine** with Cryptomator (AES-256)
 *before* they ever leave it. The cloud only ever sees ciphertext. This tool
 just moves that ciphertext around — up to the cloud, back down for a restore,
-or onto a USB drive for a local backup — from a simple interface, without you
+or onto a USB drive for a local backup from a simple interface, without you
 having to remember rclone commands.
 
 > Works with a storage box, a VPS, a NAS, Nextcloud / ownCloud, or any other
@@ -74,11 +74,11 @@ media, with **1** copy off-site. With this tool a typical setup is:
 - Copy 3 — the vault in the **cloud** (off-site, different infrastructure) — the
   "Sync" button
 
-Three copies, on independent devices, with one off-site — the goal of 3-2-1
+Three copies, on independent devices, with one off-site. The goal of 3-2-1
 being that no single failure or event can take out all copies at once.
 
 Because the vault is encrypted client-side, the USB drive and the cloud copy
-are both unreadable without your passphrase — so neither a lost USB stick nor a
+are both unreadable without your passphrase, so neither a lost USB stick nor a
 cloud breach exposes your data.
 
 ---
@@ -109,7 +109,7 @@ lang/
   fr.json              # French
 ```
 
-Keep `CloudVaultSync.ps1` and the `lang/` folder together — the script reads
+Keep `CloudVaultSync.ps1` and the `lang/` folder together. The script reads
 its UI strings from `lang/`.
 
 ---
@@ -146,7 +146,7 @@ Policy is [explicitly not a security boundary](https://learn.microsoft.com/en-us
 defense against malicious code (it can be bypassed trivially in many ways). The
 `Bypass` flag applies **only to that single invocation**: it disables nothing
 permanently and lowers no protection for any other process. The real safeguard
-is whether you trust the script's contents — and since this is open source, you
+is whether you trust the script's contents; and since this is open source, you
 can read every line first.
 
 If you prefer alternatives:
@@ -171,7 +171,7 @@ a double-click launch.
 1. Add/import your data into the **unlocked** Cryptomator vault as usual.
 2. **Lock** the vault in Cryptomator (this flushes all writes to the encrypted
    files on disk).
-3. Open Vault Sync utility — the status line turns green ("Vault: LOCKED").
+3. Open Vault Sync utility, then the status line turns green ("Vault: LOCKED").
 4. Click **Sync local vault to remote**. A console window shows live progress.
 5. Optionally click **Backup to USB** for the local copy.
 6. Run **Verify integrity** now and then, or after a big transfer.
@@ -191,7 +191,7 @@ to:
 ```
 
 The main window shows this path and lets you open the folder with a click.
-**This file is never part of the repository** and should not be published — it
+**This file is never part of the repository** and should not be published as it
 holds setup-specific data. The included `.gitignore` excludes it.
 
 `rclone` is downloaded (if you accept) into
@@ -211,10 +211,10 @@ the program. To add another language, copy `en.json`, translate the values
 
 ## Security notes
 
-- The **SSH private key is never copied or embedded** in the tool — it stays
+- The **SSH private key is never copied or embedded** in the tool; it stays
   where you generated it, protected by its passphrase.
 - **Always set a passphrase** on your SSH key. The key passphrase and any
-  WebDAV/SFTP password are stored *obscured* in rclone's config — note that
+  WebDAV/SFTP password are stored *obscured* in rclone's config; note that
   rclone "obscure" is **reversible**, not real encryption. Treat
   `%APPDATA%\CloudVaultSync` as sensitive: it's protected only by your Windows
   user profile. On a shared or non-encrypted machine, consider full-disk
@@ -222,7 +222,7 @@ the program. To add another language, copy `en.json`, translate the values
 - **Verify the host key** of your SFTP endpoint before first use, against the
   fingerprint published by your provider. The `known_hosts` field exists for
   exactly this.
-- The tool **never** handles unlocking/locking the vault — the vault passphrase
+- The tool **never** handles unlocking/locking the vault; the vault passphrase
   is always a manual step, never stored or automated.
 - `Sync` and `Backup` use `rclone copy` and **never delete** remote/USB files,
   even if you remove them locally. `Download` **can overwrite** local files
@@ -234,7 +234,7 @@ the program. To add another language, copy `en.json`, translate the values
 
 - Hash-based verification depends on the server exposing a comparable hash over
   SFTP. When it doesn't (some password/port-22 setups), rclone falls back to a
-  **size comparison** — still valid for catching missing or truncated files,
+  **size comparison** which is still valid for catching missing or truncated files,
   just not a full content hash. Key-based access on providers that expose
   hashes gives you the stronger check.
 - Designed for **single-user, personal use**, not multi-user or server
