@@ -149,18 +149,6 @@ permanently and lowers no protection for any other process. The real safeguard
 is whether you trust the script's contents; and since this is open source, you
 can read every line first.
 
-If you prefer alternatives:
-
-- **One-time, per-user policy** (allows local unsigned scripts, still requires a
-  signature for scripts downloaded from the internet):
-  ```powershell
-  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-  ```
-  then run the script directly.
-- **Sign the script** with a code-signing certificate (even self-signed) — the
-  most robust option for a public release, as it also lets others verify the
-  script hasn't been tampered with.
-
 You can make a Desktop shortcut with the `Bypass` command as the **Target** for
 a double-click launch.
 
