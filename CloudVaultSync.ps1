@@ -20,7 +20,7 @@
 #>
 
 # Application version, shown in the main window title.
-$ScriptVersion = "1.0.0"
+$ScriptVersion = "1.1"
 
 # Project root, used to locate the lang/ folder.
 $AppRoot = $PSScriptRoot
@@ -609,9 +609,18 @@ function Show-MainForm {
 
     $lblStatus = New-Object System.Windows.Forms.Label
     $lblStatus.Location = New-Object System.Drawing.Point(15, 15)
-    $lblStatus.Size = New-Object System.Drawing.Size(740, 20)
+    $lblStatus.Size = New-Object System.Drawing.Size(650, 20)
     $lblStatus.Text = Format-Str $Strings.StatusLabel @($cfg.RemoteName, $cfg.Protocol, $cfg.VaultLocalPath)
     $form.Controls.Add($lblStatus)
+
+    # --- Version, top right ---
+    $lblVersion = New-Object System.Windows.Forms.Label
+    $lblVersion.Location = New-Object System.Drawing.Point(675, 15)
+    $lblVersion.Size = New-Object System.Drawing.Size(80, 20)
+    $lblVersion.TextAlign = "TopRight"
+    $lblVersion.Text = "v$ScriptVersion"
+    $lblVersion.Font = New-Object System.Drawing.Font($lblVersion.Font, [System.Drawing.FontStyle]::Bold)
+    $form.Controls.Add($lblVersion)
 
     # --- Dynamic vault status (refreshed periodically) ---
     $lblVaultStatus = New-Object System.Windows.Forms.Label

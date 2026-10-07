@@ -5,7 +5,11 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1] - 2026-10-07
+
+### Added
+
+- The version number is now shown at the top right of the main window.
 
 ### Security
 
@@ -56,5 +60,5 @@ First public release.
 - SSH key passphrases and SFTP/WebDAV passwords are stored obscured via
   `rclone obscure` (note: obscuring is reversible, not encryption).
 
-[Unreleased]: https://github.com/<YOUR_USER>/cloud-vault-sync/compare/v1.0.0...HEAD
+[1.1]: https://github.com/<YOUR_USER>/cloud-vault-sync/compare/v1.0.0...v1.1
 [1.0.0]: https://github.com/<YOUR_USER>/cloud-vault-sync/releases/tag/v1.0.0
