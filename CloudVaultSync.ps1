@@ -40,15 +40,72 @@ if (-not (Test-Path $AppDataDir)) {
     New-Item -ItemType Directory -Path $AppDataDir -Force | Out-Null
 }
 
-function Get-Config {
-    if (Test-Path $ConfigPath) {
-        return Get-Content $ConfigPath -Raw | ConvertFrom-Json
+# Config keys holding secrets. On disk they are encrypted with Windows DPAPI
+# (current user scope), so config.json never contains them in clear text; in
+# memory they are always plain strings.
+$SecretConfigKeys = @("SftpPassword", "WebDavPassword", "SshKeyPassphrase")
+$SecretPrefix     = "dpapi:"
+
+function Protect-Secret([string]$Plain) {
+    if ([string]::IsNullOrEmpty($Plain)) { return "" }
+    $secure = ConvertTo-SecureString $Plain -AsPlainText -Force
+    return $SecretPrefix + (ConvertFrom-SecureString $secure)
+}
+
+function Unprotect-Secret([string]$Stored) {
+    if (-not $Stored.StartsWith($SecretPrefix)) { return $Stored }
+    try {
+        $secure = ConvertTo-SecureString $Stored.Substring($SecretPrefix.Length) -ErrorAction Stop
+        $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
+        try {
+            return [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        }
+        finally {
+            [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+        }
     }
-    return $null
+    catch {
+        # Encrypted by another Windows user or on another machine: DPAPI
+        # can't decrypt it. Return empty so the user re-enters it in setup.
+        return ""
+    }
+}
+
+function Get-Config {
+    if (-not (Test-Path $ConfigPath)) {
+        return $null
+    }
+
+    $cfg = Get-Content $ConfigPath -Raw | ConvertFrom-Json
+    $hasPlaintextSecret = $false
+
+    foreach ($key in $SecretConfigKeys) {
+        if ($cfg.PSObject.Properties.Name -contains $key -and $cfg.$key) {
+            if (-not ([string]$cfg.$key).StartsWith($SecretPrefix)) {
+                $hasPlaintextSecret = $true
+            }
+            $cfg.$key = Unprotect-Secret ([string]$cfg.$key)
+        }
+    }
+
+    # Migrate configs written by older versions, which stored secrets in
+    # clear text: rewrite the file encrypted right away.
+    if ($hasPlaintextSecret) {
+        Save-Config $cfg
+    }
+
+    return $cfg
 }
 
 function Save-Config($cfg) {
-    $cfg | ConvertTo-Json -Depth 5 | Set-Content -Path $ConfigPath -Encoding UTF8
+    # Work on a copy so the caller's in-memory config keeps plain values.
+    $toSave = $cfg | Select-Object *
+    foreach ($key in $SecretConfigKeys) {
+        if ($toSave.PSObject.Properties.Name -contains $key) {
+            $toSave.$key = Protect-Secret ([string]$toSave.$key)
+        }
+    }
+    $toSave | ConvertTo-Json -Depth 5 | Set-Content -Path $ConfigPath -Encoding UTF8
 }
 
 function Get-Strings {

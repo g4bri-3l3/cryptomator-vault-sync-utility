@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_Nothing yet._
+### Security
+
+- SFTP/WebDAV passwords and the SSH key passphrase are now encrypted with
+  Windows DPAPI (current user) in `config.json`. Before, they were saved there
+  in clear text. Existing configs are migrated automatically on first load.
 
 ## [1.0.0] - 2026-07-26
 

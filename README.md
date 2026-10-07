@@ -202,11 +202,14 @@ the program. To add another language, copy `en.json`, translate the values
 - The **SSH private key is never copied or embedded** in the tool; it stays
   where you generated it, protected by its passphrase.
 - **Always set a passphrase** on your SSH key. The key passphrase and any
-  WebDAV/SFTP password are stored *obscured* in rclone's config; note that
-  rclone "obscure" is **reversible**, not real encryption. Treat
-  `%APPDATA%\CloudVaultSync` as sensitive: it's protected only by your Windows
-  user profile. On a shared or non-encrypted machine, consider full-disk
-  encryption (BitLocker).
+  WebDAV/SFTP password are stored in `config.json` **encrypted with Windows
+  DPAPI**, tied to your Windows user account. They are also stored *obscured* in
+  rclone's config; note that rclone "obscure" is **reversible**, not real
+  encryption. Treat `%APPDATA%\CloudVaultSync` as sensitive: it's protected
+  only by your Windows user profile. On a shared or non-encrypted machine,
+  consider full-disk encryption (BitLocker).
+- Because of DPAPI, a `config.json` copied to another machine or user account
+  can't decrypt its passwords. Re-enter them in setup.
 - **Verify the host key** of your SFTP endpoint before first use, against the
   fingerprint published by your provider. The `known_hosts` field exists for
   exactly this.
